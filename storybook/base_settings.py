@@ -90,7 +90,7 @@ ROOT_URLCONF = 'storybook.urls'
 WSGI_APPLICATION = 'storybook.wsgi.application'
 
 TEMPLATE_DIRS = (
-    'storybook/templates',
+    os.path.join(SITE_ROOT, 'templates'),
 )
 
 BASE_INSTALLED_APPS = (
