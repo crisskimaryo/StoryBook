@@ -24,7 +24,9 @@
 {% block content %}
   <!--TEMPLATE: page.html -->
   <section>
+    {% if page.illustration %}
     <img id="{{ illustration_sizing }}" src="{{ page.illustration.url }}" />
+    {% endif %}
     <div id="storyDescription">
       {{ page.long_desc|safe }}
     </div>

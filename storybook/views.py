@@ -30,7 +30,7 @@ def page(request, pageid):
     if len(nextpages)>1:
         nextpage2 = nextpages[1]
     illustration_sizing = "illustration-small"
-    if page.illustration.width > 710:
+    if page.illustration and page.illustration.width > 710:
         illustration_sizing = "illustration-big"
     context = {
         'page': page,
@@ -68,12 +68,14 @@ def submiteditedpage(request, pageid):
         if request.user.is_staff or page.author == findUser(request.user):
             if request.FILES:
                 files = request.FILES
-            else:
+            elif page.illustration:
                 files = {'illustration': page.illustration}
+            else:
+                files = {}
             form = PageForm(request.POST, files)
             if form.is_valid():
                 page.short_desc = form.cleaned_data['short_desc']
-                page.illustration = files['illustration']
+                page.illustration = files.get('illustration')
                 page.long_desc = form.cleaned_data['long_desc']
                 page.save()
                 return HttpResponseRedirect("/page:"+str(page.id)+"/") 
@@ -100,7 +102,7 @@ def submitnewpage(request, parentid):
                     page.parent = None
                 page.author = request.user
                 page.short_desc = form.cleaned_data['short_desc']
-                page.illustration = request.FILES['illustration']
+                page.illustration = request.FILES.get('illustration')
                 page.long_desc = form.cleaned_data['long_desc']            
                 page.save()
                 return HttpResponseRedirect("/page:"+str(page.id)+"/")
