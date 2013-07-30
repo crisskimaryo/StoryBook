@@ -49,12 +49,11 @@
   <!--TEMPLATE: page.html -->
   <section>
     {% if page.illustration %}
-    <img id="{{ illustration_sizing }}" src="{{ page.illustration.url }}" />
+    <img id="illustration" src="{{ page.illustration.url }}" />
     {% endif %}
     <div id="storyDescription">
       {{ page.long_desc|safe }}
     </div>
-    {% include "fontscript.html" %}
   </section>
   <!--ENDTEMPLATE-->
 {% endblock %}

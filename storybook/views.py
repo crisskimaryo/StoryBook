@@ -37,9 +37,6 @@ def page(request, pageid):
         nextpage2_short = nextpage2.short_desc
         if len(nextpage2_short) > 12:
             nextpage2_short = nextpage2_short[:12] + "..."
-    illustration_sizing = "illustration-small"
-    if page.illustration and page.illustration.width > 710:
-        illustration_sizing = "illustration-big"
     context = {
         'page': page,
         'page_is_users': page_is_users,
@@ -47,7 +44,6 @@ def page(request, pageid):
         'nextpage1_short': nextpage1_short,
         'nextpage2': nextpage2,
         'nextpage2_short': nextpage2_short,
-        'illustration_sizing': illustration_sizing,
         }
     return render_to_response("page.html", context, context_instance=RequestContext(request))
  

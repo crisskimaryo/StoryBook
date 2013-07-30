@@ -13,6 +13,7 @@ a {
 
 .nav-line {
     margin-top: 20px;
+    margin-left: 28px;
 }
 .nav-line > div {
     display: inline-block;
@@ -127,12 +128,16 @@ section {
 /* Site body style */
 #storyDescription {
     font-family: sans-seriff;
+    min-height: 310px;
 }
 
 #storyDescription p {
+    font-size: 30px;
     margin-top: -1%;
     margin-right: -1%;
     margin-bottom: -1%;
+    margin-left: 10px;
+    padding-top: 10px;
 }
 
 .button {
@@ -145,9 +150,11 @@ section {
     font-size: 0.9em;
 }
 
-#illustration-big {
-    width: 710px;
-    height: auto;
+#illustration {
+    width: auto;
+    float: left;
+    padding-right: 10px;
+    height: 300px;
 }
 
 #tree-canvas {
