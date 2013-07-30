@@ -25,10 +25,18 @@ def page(request, pageid):
     nextpages = Page.objects.all().filter(parent=page)
     nextpage1 = None
     nextpage2 = None
+    nextpage1_short = None
+    nextpage2_short = None
     if len(nextpages)>0:
         nextpage1 = nextpages[0]
+        nextpage1_short = nextpage1.short_desc
+        if len(nextpage1_short) > 12:
+            nextpage1_short = nextpage1_short[:12] + "..."
     if len(nextpages)>1:
         nextpage2 = nextpages[1]
+        nextpage2_short = nextpage2.short_desc
+        if len(nextpage2_short) > 12:
+            nextpage2_short = nextpage2_short[:12] + "..."
     illustration_sizing = "illustration-small"
     if page.illustration and page.illustration.width > 710:
         illustration_sizing = "illustration-big"
@@ -36,7 +44,9 @@ def page(request, pageid):
         'page': page,
         'page_is_users': page_is_users,
         'nextpage1': nextpage1, 
+        'nextpage1_short': nextpage1_short,
         'nextpage2': nextpage2,
+        'nextpage2_short': nextpage2_short,
         'illustration_sizing': illustration_sizing,
         }
     return render_to_response("page.html", context, context_instance=RequestContext(request))
@@ -84,7 +94,7 @@ def submiteditedpage(request, pageid):
     return goHome()
 
 def writenextpage(request, parentid):
-    if request.user.is_authenticated() and 'pageid' in request.GET and request.GET['pageid'] == parentid:
+    if request.user.is_authenticated():
         if (not parentid and user.is_staff()) or parentid:
             form = PageForm
             return render_to_response("writinganewpage.html", {'form': form, 'parentid': parentid}, context_instance=RequestContext(request))
