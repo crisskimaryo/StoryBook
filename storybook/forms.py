@@ -8,7 +8,7 @@ class PageForm(forms.Form):
         initial=" Enter short description here",
         widget=forms.TextInput(attrs={'size':'30'}),
         )
-    illustration = forms.ImageField()
+    illustration = forms.ImageField(required=False)
     long_desc = forms.CharField(widget=TinyMCE(attrs={'cols': 100, 'rows': 15}),max_length=200, label="")
     
     def is_valid(self):

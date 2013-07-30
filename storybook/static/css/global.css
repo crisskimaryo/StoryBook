@@ -11,6 +11,34 @@ a {
     color: #66A3D2;
 }
 
+.nav-line {
+    margin-top: 20px;
+    margin-left: 28px;
+}
+.nav-line > div {
+    display: inline-block;
+}
+.nav-left {
+}
+.nav-right {
+    float: right;
+    display: inline;
+    width: 325px;
+}
+
+#topthings > div , #topthings > div > * {
+    display: inline-block;
+}
+
+#story-options > div , #story-options > div > * {
+    display: inline-block;
+}
+
+.page-manage {
+    float: right;
+    min-width: 300px;
+}
+
 a:hover {
     color: #0B61A4;
 }
@@ -97,28 +125,19 @@ section {
     display: inline-block;
 }
 
-#edit-button {
-    display: inline-block;
-    float: right;
-    margin-top: 10px;
-    margin-right: 30px;
-}
-
-#delete-button {
-    display: inline-block;
-    float: right;
-    margin-top: 10px;
-}
-
 /* Site body style */
 #storyDescription {
     font-family: sans-seriff;
+    min-height: 310px;
 }
 
 #storyDescription p {
+    font-size: 30px;
     margin-top: -1%;
     margin-right: -1%;
     margin-bottom: -1%;
+    margin-left: 10px;
+    padding-top: 10px;
 }
 
 .button {
@@ -131,15 +150,11 @@ section {
     font-size: 0.9em;
 }
 
-#illustration-big {
-    width: 710px;
-    height: auto;
-}
-
-#view-tree {
-    float: right;
-    text-align: right;
-    display: inline;
+#illustration {
+    width: auto;
+    float: left;
+    padding-right: 10px;
+    height: 300px;
 }
 
 #tree-canvas {
@@ -165,6 +180,7 @@ footer {
 #storyList {
     margin-top: 0px;
     margin-bottom: 0px;
+    text-decoration: none;
 }
 
 #nodestats {
@@ -174,4 +190,17 @@ footer {
 
 #approveform {
     display: inline;
+}
+
+/*  Page Button Styling */
+
+.page-buttons {
+    font-size: 15px;
+    margin: -7px 5px;
+    padding: 10px;
+    text-align: center;
+    color: #66A3D2;
+    background-color: #1B6FB0;
+    width: 119px;
+    display: inline-block;
 }
