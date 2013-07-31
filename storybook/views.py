@@ -21,10 +21,7 @@ def page(request, pageid):
     page = findPage(pageid)
     if not page:
         return go404()
-    if request.user.is_anonymous() == True:
-        page_is_users = False
-    else:
-        page_is_users = (page.author == findUser(request.user))
+    page_is_users = not request.user.is_anonymous() and page.author == findUser(request.user)
     nextpages = Page.objects.all().filter(parent=page)
     nextpage1 = None
     nextpage2 = None
