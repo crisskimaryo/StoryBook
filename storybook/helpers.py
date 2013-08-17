@@ -1,13 +1,13 @@
 from django.template import Context
 from django.template import RequestContext
 from django.contrib.auth.models import User
-from stories.models import *
+from stories import models
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 
 def findPage(pageid):
     try:
-        page = Page.objects.all().get(id=pageid)
+        page = models.Page.objects.all().get(id=pageid)
     except ObjectDoesNotExist:
         return None
     return page
@@ -21,9 +21,9 @@ def findProperties(user):
     properties = None
     if user.is_authenticated(): 
         try:
-            properties = Properties.objects.all().get(user=findUser(user))
+            properties = models.Properties.objects.all().get(user=findUser(user))
         except ObjectDoesNotExist:
-            properties = Properties()
+            properties = models.Properties()
             properties.user = findUser(user)
             properties.save()
     return properties
