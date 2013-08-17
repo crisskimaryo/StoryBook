@@ -4,9 +4,9 @@ from tinymce.widgets import TinyMCE
 class PageForm(forms.Form):
     short_desc = forms.CharField(
         min_length=2,
-        max_length=30,
+        max_length=60,
         initial=" Enter short description here",
-        widget=forms.TextInput(attrs={'size':'30'}),
+        widget=forms.TextInput(attrs={'size':'40'}),
         )
     illustration = forms.ImageField(required=False)
     long_desc = forms.CharField(widget=TinyMCE(attrs={'cols': 100, 'rows': 15}),
