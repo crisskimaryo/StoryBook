@@ -9,7 +9,8 @@ class PageForm(forms.Form):
         widget=forms.TextInput(attrs={'size':'30'}),
         )
     illustration = forms.ImageField(required=False)
-    long_desc = forms.CharField(widget=TinyMCE(attrs={'cols': 100, 'rows': 15}),max_length=200, label="")
+    long_desc = forms.CharField(widget=TinyMCE(attrs={'cols': 100, 'rows': 15}),
+        max_length=600, label="")
     
     def is_valid(self):
         valid = super(PageForm, self).is_valid()
