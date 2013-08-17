@@ -6,7 +6,7 @@ class Page(models.Model):
     author = models.ForeignKey(User)
     lastedited = models.DateTimeField(auto_now=True)
     illustration = models.ImageField(upload_to='illustrations/%Y/%m/%d', blank=True, null=True)
-    short_desc = models.CharField(max_length=40)
+    short_desc = models.CharField(max_length=30)
     long_desc = models.TextField()
     
     def child1(self):
