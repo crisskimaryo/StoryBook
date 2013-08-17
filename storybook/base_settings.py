@@ -106,6 +106,7 @@ BASE_INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'storybook.stories',
     'tinymce',
+    'south',
 )
 
 # A sample logging configuration. The only tangible logging
