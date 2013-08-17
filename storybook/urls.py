@@ -1,5 +1,6 @@
 from django.conf.urls.defaults import patterns, url, include
 import views
+import registrationviews
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login, logout
@@ -12,7 +13,7 @@ urlpatterns = patterns('',
     url(r'^$', views.home),
     url(r'^login/$', login),
     url(r'^logout/$', logout, {'next_page': '/'}),
-    url(r'^register/$', views.register),
+    url(r'^register/$', registrationviews.register),
     url(r'^accounts/profile/$', views.profile),
     url(r'^page:(\d+)/$', views.page),
     url(r'^writenextpage:(\d+)/$', views.writenextpage),

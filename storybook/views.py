@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from forms import PageForm
 from stories.models import Page, Properties
-from registrationviews import *
 from django.http import HttpResponseRedirect
 from helpers import *
 from django.core.exceptions import ObjectDoesNotExist
