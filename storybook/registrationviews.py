@@ -16,12 +16,8 @@ class RichUserCreationForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super(RichUserCreationForm, self).save(commit=False)
-        self.cleaned_data["first_name"]
-        first_name = "First"
-        self.cleaned_data["last_name"]
-        last_name = "Last"
-        user.first_name = first_name
-        user.last_name = last_name
+        user.first_name = self.cleaned_data["first_name"]
+        user.last_name = self.cleaned_data["last_name"]
         if commit:
             user.save()
             user.has_perm('adventure.add_Branch')
