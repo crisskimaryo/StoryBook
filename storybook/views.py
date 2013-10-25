@@ -12,8 +12,9 @@ from django.http import HttpResponseRedirect
 from helpers import findPage, findProperties, findUser, goHome, go404
 from django.core.exceptions import ObjectDoesNotExist
 
-def home(request):
-    rootpages = Page.objects.all().filter(parent=None)
+def home(request, pk):
+    import pdb; pdb.set_trace()
+    rootpages = Page.objects.all().filter(parent=None).filter(pk=pk)
     return render_to_response("home.html", {'rootpages': rootpages}, context_instance=RequestContext(request))
 
 def page(request, pageid):

@@ -1,7 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class Book(models.Model):
+    authoring_class = models.CharField(max_length=100)
+    owner = models.ForeignKey(User)
+    def __unicode__(self):
+        return "%s"% (self.authoring_class)
+
 class Page(models.Model):
+    book = models.ForeignKey(Book, null=True)
     parent = models.ForeignKey('Page', blank=True, null=True)
     author = models.ForeignKey(User)
     lastedited = models.DateTimeField(auto_now=True)
