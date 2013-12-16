@@ -15,7 +15,7 @@
           {% endfor %}
         </ul>
       {% endif %}
-      <form id="short_descform" action="/writenextpage:0/" method="get">
+      <form id="short_descform" action="/writenextpage:0/{{pk}}/" method="get">
         <input type="hidden" name="pageid" value="0">
         <input type="submit" value="Start New Story">
       </form>

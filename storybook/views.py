@@ -2,19 +2,21 @@ from django.template.loader import get_template
 from django.template import Context
 from django.template import RequestContext
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from forms import PageForm
-from stories.models import Page, Properties
+from stories.models import Page, Properties, Book
 from django.http import HttpResponseRedirect
 from helpers import findPage, findProperties, findUser, goHome, go404
 from django.core.exceptions import ObjectDoesNotExist
+get_object_or_404
 
-def home(request):
-    rootpages = Page.objects.all().filter(parent=None)
-    return render_to_response("home.html", {'rootpages': rootpages}, context_instance=RequestContext(request))
+def home(request, pk):
+    book = Book.objects.all().filter(pk=pk)
+    rootpages = Page.objects.all().filter(parent=None).filter(book=book)
+    return render_to_response("home.html", {'rootpages': rootpages, 'pk': pk}, context_instance=RequestContext(request))
 
 def page(request, pageid):
     page = findPage(pageid)
@@ -22,6 +24,7 @@ def page(request, pageid):
         return go404()
     page_is_users = not request.user.is_anonymous() and page.author == findUser(request.user)
     nextpages = Page.objects.all().filter(parent=page)
+    book = page.book_id
     nextpage1 = None
     nextpage2 = None
     nextpage1_short = None
@@ -38,6 +41,7 @@ def page(request, pageid):
             nextpage2_short = nextpage2_short[:12] + "..."
     context = {
         'page': page,
+        'book': book,
         'page_is_users': page_is_users,
         'nextpage1': nextpage1, 
         'nextpage1_short': nextpage1_short,
@@ -59,7 +63,7 @@ def editpage(request, pageid):
     if not page:
         return go404()
     if request.user.is_staff or page.author == findUser(request.user):
-        already_written = {'short_desc': page.short_desc, 'long_desc': page.long_desc}
+        already_written = {'short_desc': page.short_desc, 'long_desc': page.long_desc, 'book': page.book}
         files = {'illustration': page.illustration}
         form = PageForm(already_written, files)
         return render_to_response("editingapage.html", {'form': form, 'page': page}, context_instance=RequestContext(request))
@@ -88,14 +92,15 @@ def submiteditedpage(request, pageid):
                 return render_to_response("editingapage.html", {'form': form, 'page': page}, context_instance=RequestContext(request))
     return goHome()
 
-def writenextpage(request, parentid):
+def writenextpage(request, parentid, *args, **kwargs):
+    book = request.path.split('/')[-2]
     if request.user.is_authenticated():
         if (not parentid and user.is_staff()) or parentid:
             form = PageForm
-            return render_to_response("writinganewpage.html", {'form': form, 'parentid': parentid}, context_instance=RequestContext(request))
+            return render_to_response("writinganewpage.html", {'form': form, 'parentid': parentid, 'book': book}, context_instance=RequestContext(request))
     return goHome()
 
-def submitnewpage(request, parentid):
+def submitnewpage(request, parentid, book):
     if request.user.is_authenticated() and request.method == "POST":
         if (not parentid and user.is_staff()) or parentid:    
             form = PageForm(request.POST, request.FILES)
@@ -109,6 +114,7 @@ def submitnewpage(request, parentid):
                 page.short_desc = form.cleaned_data['short_desc']
                 page.illustration = request.FILES.get('illustration')
                 page.long_desc = form.cleaned_data['long_desc']            
+                page.book = get_object_or_404(Book,pk=int(book))
                 page.save()
                 return HttpResponseRedirect("/page:"+str(page.id)+"/")
             else:

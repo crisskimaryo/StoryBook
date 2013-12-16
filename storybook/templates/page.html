@@ -19,7 +19,7 @@
     <div class="nav-right">
       {% if not nextpage1 or not nextpage2 %}
         {% if user.is_authenticated %}
-          <a class="page-buttons" href="/writenextpage:{{ page.id }}/">Create New Pathway</a>
+        <a class="page-buttons" href="/writenextpage:{{ page.id }}/{{ book }}/">Create New Pathway</a>
         {% endif %}
       {% endif %}
       {% if user.is_staff %}

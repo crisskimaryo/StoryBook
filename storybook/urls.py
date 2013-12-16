@@ -1,4 +1,6 @@
 from django.conf.urls.defaults import patterns, url, include
+from django.views.generic import ListView
+from stories.models import Book
 import views
 import registrationviews
 from django.conf import settings
@@ -10,14 +12,15 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', views.home),
+    url(r'^$', ListView.as_view(model=Book)),
+    url(r'^books/(?P<pk>\d+)/$', views.home),
     url(r'^login/$', login),
     url(r'^logout/$', logout, {'next_page': '/'}),
     url(r'^register/$', registrationviews.register),
     url(r'^accounts/profile/$', views.profile),
     url(r'^page:(\d+)/$', views.page),
-    url(r'^writenextpage:(\d+)/$', views.writenextpage),
-    url(r'^submitnewpage:(\d+)/$', views.submitnewpage),
+    url(r'^writenextpage:(\d+)/(\d+)/$', views.writenextpage),
+    url(r'^submitnewpage:(\d+)/(\d+)/$', views.submitnewpage),
     url(r'^editpage:(\d+)/$', views.editpage),
     url(r'^submiteditedpage:(\d+)/$', views.submiteditedpage),
     url(r'^deletebranch:(\d+)/$', views.deletebranch),

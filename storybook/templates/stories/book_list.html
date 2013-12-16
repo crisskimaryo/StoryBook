@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Main Page{% endblock %}
+{% block topthings %}
+  <div id="topthings">
+    <h1 class="heading2">List Of Collections</h1>
+  </div>
+{% endblock %}
+{% block content %}
+  <!--TEMPLATE: home.html -->
+    <section>
+        <ul id="storyList">
+          {% if object_list %}
+            {% for item in object_list %}
+            <li><a href="/books/{{item.id}}/">{{item}}</a></li>
+            {% endfor %}
+          {% endif %}
+        </ul>
+    </section>
+  <!--ENDTEMPLATE-->
+{% endblock %}
