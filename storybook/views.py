@@ -118,7 +118,7 @@ def submitnewpage(request, parentid, book):
                 page.save()
                 return HttpResponseRedirect("/page:"+str(page.id)+"/")
             else:
-                return render_to_response("writinganewpage.html", {'form': form, 'parentid': parentid}, context_instance=RequestContext(request))
+                return render_to_response("writinganewpage.html", {'form': form, 'parentid': parentid, "book": book}, context_instance=RequestContext(request))
     return goHome() 
 
 def deletebranch(request, pageid):
