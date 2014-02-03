@@ -10,7 +10,7 @@ class PageForm(forms.Form):
         )
     illustration = forms.ImageField(required=False)
     long_desc = forms.CharField(widget=TinyMCE(attrs={'cols': 100, 'rows': 15}),
-        max_length=600, label="")
+        max_length=6000, label="")
     
     def is_valid(self):
         valid = super(PageForm, self).is_valid()
@@ -20,5 +20,3 @@ class PageForm(forms.Form):
             self._errors['short_desc'] = 'No short description entered'
             return False
         return True
-    
-    
