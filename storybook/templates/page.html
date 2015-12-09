@@ -49,7 +49,10 @@
   <!--TEMPLATE: page.html -->
   <section>
     {% if page.illustration %}
-    <img id="illustration" src="{{ page.illustration.url }}" />
+        <img id="illustration" src="{{ page.illustration.url }}" />
+    {% endif %}
+    {% if page.video %}
+        <iframe src='{{page.video}}' width='500' height='500'></iframe>
     {% endif %}
     <div id="storyDescription">
       {{ page.long_desc|safe }}
