@@ -156,6 +156,7 @@ section {
     float: left;
     padding-right: 10px;
     height: 300px;
+    max-width:45%
 }
 
 #tree-canvas {

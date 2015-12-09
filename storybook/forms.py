@@ -9,6 +9,7 @@ class PageForm(forms.Form):
         widget=forms.TextInput(attrs={'size':'40'}),
         )
     illustration = forms.ImageField(required=False)
+    video = forms.FileField(required=False)
     long_desc = forms.CharField(widget=TinyMCE(attrs={'cols': 100, 'rows': 15}),
         max_length=6000, label="")
     
@@ -19,4 +20,9 @@ class PageForm(forms.Form):
         if self.cleaned_data['short_desc'] == self.fields['short_desc'].initial:
             self._errors['short_desc'] = 'No short description entered'
             return False
+        if self.cleaned_data['video'] and self.cleaned_data['illustration']:
+            self._errors['illustration'] = 'Can only have video OR illustration'
+            self._errors['video'] = 'Can only have video OR illustration'
+            return False
+
         return True

@@ -1,5 +1,7 @@
 *.pyc
 *.swp
+*.db
+config.py
 database
 venv
 settings_dev.py

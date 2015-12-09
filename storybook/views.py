@@ -13,6 +13,25 @@ from helpers import findPage, findProperties, findUser, goHome, go404
 from django.core.exceptions import ObjectDoesNotExist
 get_object_or_404
 
+
+import vimeo
+
+import config
+
+
+def Vimeo_Upload(video):
+    v = vimeo.VimeoClient(
+        token=config.TOKEN,
+        key=config.CLIENT_ID,
+        secret=config.CLIENT_SECRET
+    )
+    about_me = v.get('/me')
+    assert about_me.status_code == 200
+    video_uri = v.upload(video.file)
+    video_uri = (video_uri.split('s')[0] + video_uri.split('s')[1])
+    return video_uri
+
+
 def home(request, pk):
     book = Book.objects.all().filter(pk=pk)
     rootpages = Page.objects.all().filter(parent=None).filter(book=book)
@@ -113,6 +132,9 @@ def submitnewpage(request, parentid, book):
                 page.author = request.user
                 page.short_desc = form.cleaned_data['short_desc']
                 page.illustration = request.FILES.get('illustration')
+                page.video = 'https://player.vimeo.com' + (
+                    Vimeo_Upload(request.FILES.get('video'))
+                )
                 page.long_desc = form.cleaned_data['long_desc']            
                 page.book = get_object_or_404(Book,pk=int(book))
                 page.save()

@@ -1,4 +1,5 @@
 Django==1.5
 django-tinymce==1.5.1b2
-PIL
 South==0.8.2
+Pillow==3.0.0
+requests==2.8.1
