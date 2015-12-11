@@ -5,11 +5,12 @@ class PageForm(forms.Form):
     short_desc = forms.CharField(
         min_length=2,
         max_length=40,
+        label= '',
         initial=" Enter short description here",
         widget=forms.TextInput(attrs={'size':'40'}),
         )
-    illustration = forms.ImageField(required=False)
-    video = forms.FileField(required=False)
+    illustration = forms.ImageField(required=False, label="Image")
+    video = forms.FileField(required=False, label="Video")
     long_desc = forms.CharField(widget=TinyMCE(attrs={'cols': 100, 'rows': 15}),
         max_length=6000, label="")
     

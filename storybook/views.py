@@ -105,6 +105,10 @@ def submiteditedpage(request, pageid):
                 page.short_desc = form.cleaned_data['short_desc']
                 page.illustration = files.get('illustration')
                 page.long_desc = form.cleaned_data['long_desc']
+                if request.FILES.get('video'): 
+                    page.video = 'https://player.vimeo.com' + (
+                    Vimeo_Upload(request.FILES.get('video'))
+                )
                 page.save()
                 return HttpResponseRedirect("/page:"+str(page.id)+"/") 
             else:
@@ -131,10 +135,13 @@ def submitnewpage(request, parentid, book):
                     page.parent = None
                 page.author = request.user
                 page.short_desc = form.cleaned_data['short_desc']
-                page.illustration = request.FILES.get('illustration')
-                page.video = 'https://player.vimeo.com' + (
+                if request.FILES.get('video'): 
+                    page.video = 'https://player.vimeo.com' + (
                     Vimeo_Upload(request.FILES.get('video'))
                 )
+                if request.FILES.get('illustration'):
+                    page.illustration = request.FILES.get('illustration')
+                    page.video = None
                 page.long_desc = form.cleaned_data['long_desc']            
                 page.book = get_object_or_404(Book,pk=int(book))
                 page.save()
